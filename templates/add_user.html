@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-success" role="alert">
+    {{message}}
+    </div>
+{% endfor %}
+
+{% if name %}
+    <h2>გამარჯობა {{name}}</h2>
+    <br>
+{% else %}
+    <h2>ჩამონათვალი:</h2>
+    <br>
+    <form method="POST" action="">
+        {{form.hidden_tag()}}
+        {{form.name.label(class="form-label")}}
+        {{form.name(class="form-control")}}
+        <br>
+        {{form.email.label(class="form-label")}}
+        {{form.email(class="form-control")}}
+        <br>
+        {{form.submit(class="btn btn-success")}}
+    </form>
+    <br>
+    <br>
+{% for our_users in our_users %}
+    {{our_user.id}}{{our_user.name }} {{our_user.email}}
+{% endfor %}
+<br>
+
+{% endif %}
+{% endblock %}

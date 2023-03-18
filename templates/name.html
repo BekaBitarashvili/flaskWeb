@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+    <div class="alert alert-success" role="alert">
+    {{message}}
+    </div>
+{% endfor %}
+
+{% if name %}
+    <h2>გამარჯობა {{name}}</h2>
+    <br>
+    <img src="{{url_for('static', filename='images/lovedog.jpg')}}"width=600>
+{% else %}
+    <h2>დაწერე სახელი</h2>
+    <br>
+    <form method="POST" action="">
+        {{form.hidden_tag()}}
+        {{form.name.label(class="form-label")}}
+        {{form.name(class="form-control")}}
+        <br>
+        {{form.submit(class="btn btn-success")}}
+    </form>
+
+
+{% endif %}
+{% endblock %}

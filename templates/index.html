@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>HELLO ANA</h1>
+
+<p>ANA KARGI GOGOA!!!</p>
+
+<p>CHEMI SAXELIA {{first_name}}</p>
+
+<h2>PIZZA:</h2>
+{% for i in favorite_pizza %}
+    {{i}}<br>
+{% endfor %}
+<br>
+{{favorite_pizza.1}}
+{% endblock %}
