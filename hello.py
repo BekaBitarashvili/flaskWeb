@@ -16,8 +16,7 @@ app.config['SECRET_KEY'] = '12345678'
 
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+
 
 
 
@@ -61,7 +60,7 @@ def add_user():
         form.email.data = ''
         flash('წარმატებულად დაემატა!')
     our_users = Users.query.order_by(Users.date_added)
-    return render_template("add_user.html", form=form, name=name)
+    return render_template("add_user.html", form=form, name=name, our_users=our_users)
 
 
 @app.route("/")
@@ -101,3 +100,9 @@ def namepage():
         form.name.data = ''
         flash("წარმატებულია!!!")
     return render_template('name.html', name = name, form = form)
+
+
+
+
+with app.app_context():
+    db.create_all()
