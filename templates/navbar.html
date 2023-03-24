@@ -1,24 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{url_for('hello_world')}}">UNILAB</a>
+        <a class="navbar-brand" href="{{url_for('hello_world')}}">უნიპოსტი</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0 order-1">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url_for('user', name='Beka')}}">პროფილი</a>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url_for('namepage')}}">სახელი</a>
+                </li> -->
+                
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('dashboard')}}">პანელი</a>
+                </li>
+                {% if current_user.id == 1 %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('admin')}}">ადმინი</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('logout')}}">გამოსვლა</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('add_user')}}">რეგისტრაცია</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('add_user')}}">ახალი</a>
+                    <a class="nav-link" href="{{url_for('login')}}">შესვლა</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('add_post')}}">ბლოგის დამატება</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('posts')}}">პოსტები</a>
                 </li>
             </ul>
-            <form class="d-flex order-lg-2">
-                <input class="form-control me-2" type="search" placeholder="ძებნა" aria-label="Search">
-                <button class="btn btn-success" type="submit">ძებნა</button>
+            <form method="POST" action="{{ url_for('search') }}" class="d-flex order-lg-2">
+                {{ form.hidden_tag() }}
+                <input class="form-control me-2" type="search" placeholder="ძებნა" aria-label="Search", name="searched">
+                <button class="btn btn-dark" type="submit">ძებნა</button>
             </form>
         </div>
     </div>

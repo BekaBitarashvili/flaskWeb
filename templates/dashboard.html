@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block content %}
+{% for message in get_flashed_messages() %}
+	
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+	
+{% endfor %}
+	<h2>მომხმარებლის პანელი</h2>
+	<br/>
+	<div class="card">
+  <div class="card-header">
+    {{ current_user.name }}
+  </div>
+  <div class="card-body">
+
+<div class="container">
+	<div class="row">
+		<div class="col-8">
+
+    <strong>სახელი:</strong>
+	{{ current_user.name }}<br/>
+
+	<strong>მომხმარებელი:</strong>
+	{{ current_user.username }}<br/>
+
+	<strong>მომხმარებლის ID:</strong>
+	{{ current_user.id }}<br/>
+
+	<strong>ელფოსტა:</strong>
+	{{ current_user.email }}<br/>
+
+	<strong>ფსევდონიმი:</strong>
+	{{ current_user.favorite_color }}<br/>
+
+	<strong>ავტორის შესახებ:</strong>
+	{{ current_user.about_author }}<br/>
+
+	<strong>პროფილის სურათი:</strong>
+	{{ current_user.profile_pic }}<br/>
+
+	<strong>რეგისტრაციის თარიღი:</strong>
+	{{ current_user.date_added }}<br/>
+
+
+
+
+
+    </p>
+    <a href="{{ url_for('logout')}}" class="btn btn-secondary btn-sm">გამოსვლა</a>
+    <a href="{{ url_for('update', id=current_user.id)}}" class="btn btn-secondary btn-sm">ცვლილება</a>
+
+    <a href="{{ url_for('delete', id=current_user.id)}}" class="btn btn-danger btn-sm">წაშლა</a>
+    <br/><br/>
+
+
+	</div>
+	<div class="col-4">
+		<img src="{{ url_for('static', filename='images/profile.png')}}" width="150" align="right">
+	</div>
+	</div>
+	</div>
+
+
+  </div>
+</div>
+	
+	
+<br/>
+
+<div class="card">
+  <div class="card-header">
+    პროფილის ცვლილება
+  </div>
+  <div class="card-body">
+
+  	<form action="/dashboard" method="POST" enctype="multipart/form-data">
+		{{ form.hidden_tag() }}
+
+		{{ form.name.label(class="form-label") }}
+
+		{{ form.name(class="form-control", value=name_to_update.name) }}
+		<br/>
+
+		{{ form.username.label(class="form-label") }}
+
+		{{ form.username(class="form-control", value=name_to_update.username) }}
+		<br/>
+
+		{{ form.email.label(class="form-label") }}
+
+		{{ form.email(class="form-control", value=name_to_update.email) }}
+		<br/>
+
+		{{ form.favorite_color.label(class="form-label") }}
+
+		{{ form.favorite_color(class="form-control", value=name_to_update.favorite_color) }}
+
+		<br/>
+		<br/>
+
+		{{ form.about_author.label(class="form-label") }}
+
+		<textarea name="about_author" class="form-control">{{ name_to_update.about_author }}</textarea>
+		<br>
+
+		<br/>
+
+		{{ form.profile_pic.label(class="form-label") }}
+
+		{{ form.profile_pic(class="form-control", value=name_to_update.profile_pic) }}
+		<br>
+		{{ form.submit(class="btn btn-secondary btn-sm") }}
+
+
+
+
+	</form>
+
+
+
+</div>
+
+
+
+
+
+</div>
+{% endblock %}
